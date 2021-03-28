@@ -67,7 +67,13 @@ function addAnswer(answerText, qIdx, idx) {
       children[i].style.WebkitAnimation = "fadeOut 0.5s";
       children[i].style.animation = "fadeOut 0.5s"
     }
+
+    var questionImg = document.querySelector('.questionImage'+qIdx);
+    questionImg.style.WebkitAnimation = "fadeOut 0.5s";
+    questionImg.style.animation = "fadeOut 0.5s";
+
     setTimeout(() => {
+      questionImg.style.display = 'none';
       select[qIdx] = qnaList[qIdx].a[idx].type;
 
       for(let i=0; i < children.length; i++){
@@ -86,6 +92,16 @@ function goNext(qIdx) {
 
   var q = document.querySelector('.qBox');
   q.innerHTML = qnaList[qIdx].q;
+
+  const qImageDiv = document.querySelector('#qImage');
+  var qImage = document.createElement('img');
+  var qImageURL = 'img/question-' + qIdx + '.jpg';
+  qImage.src = qImageURL;
+  qImage.alt = qIdx;
+  qImage.classList.add('questionImage'+qIdx);
+  qImage.classList.add('img-fluid');
+  qImageDiv.appendChild(qImage);
+
   for(let i in qnaList[qIdx].a){
     addAnswer(qnaList[qIdx].a[i].answer, qIdx, i);
   }
