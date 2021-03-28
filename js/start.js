@@ -1,15 +1,20 @@
 const main = document.querySelector("#main");
 const qna = document.querySelector("#qna");
 const result = document.querySelector("#result");
-const endPoint = 12;
-const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+const endPoint = 4;
+const select = [0, 0, 0, 0];
 
 
 function calResult()
 {
-  var result = select.indexOf(Math.max(...select));
-  console.log(select, result);
-  return result;
+  var mbti = select[0] + select[1] + select[2] + select[3];
+  console.log(mbti);
+
+  for(let i=0;i < infoList.length; i++) {
+    if( mbti === infoList[i].mbti ){
+      return i;
+    }
+  }
 }
 
 function setResult(){
@@ -19,7 +24,7 @@ function setResult(){
 
   var resultImg = document.createElement('img');
   const imgDiv = document.querySelector('#resultImg');
-  var imgURL = 'img/image-' + point + '.png';
+  var imgURL = 'img/MBTI-' + point + '.jpg';
   resultImg.src = imgURL;
   resultImg.alt = point;
   resultImg.classList.add('img-fluid');
@@ -63,10 +68,7 @@ function addAnswer(answerText, qIdx, idx) {
       children[i].style.animation = "fadeOut 0.5s"
     }
     setTimeout(() => {
-      var target = qnaList[qIdx].a[idx].type;
-      for(let i = 0; i < target.length; i++){
-        select[target[i]] += 1;
-      }
+      select[qIdx] = qnaList[qIdx].a[idx].type;
 
       for(let i=0; i < children.length; i++){
         children[i].style.display = 'none';
